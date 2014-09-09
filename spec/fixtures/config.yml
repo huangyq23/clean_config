@@ -1,0 +1,5 @@
+:test:
+  :foo: bar
+other_test: 123
+:merge_test:
+  :foo: baz
