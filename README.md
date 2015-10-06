@@ -34,50 +34,57 @@ require 'clean_config'
 class MyClass
   include CleanConfig::Configurable
 
-  config = CleanConfig::Configuration.instance
-  config[:foo][:bar]          # returns 'baz'
-  config.foo.bar              # also returns 'baz'
-  config.parse_key('foo.bar') # also returns 'baz'
+  def initialize()
+    config = CleanConfig::Configuration.instance
+    config[:foo][:bar]          # 'baz'
+    config.foo.bar              # 'baz'
+    config.parse_key('foo.bar') # 'baz'
+  end
+end
 ```
 
-### Loading Configuration
-If you are using a configurable module/class, you should never have to read from a config file.
-Including the `Configurable` module is what initializes the `Configuration` object with the data from `config/config.yml`,
-searching up the directory structure for the configuration. Simply include this module and your configuration will be available
-with `CleanConfig::Configuration.instance`.
+### Conventions
+Loading configuration data in Ruby is easy. In fact, it is so easy that if you look at several different Ruby projects,
+you'll likely find several different implementations for loading configuration. We decided to standardize how we would 
+load our configuration across all our gems.
 
-If you are using the CleanConfig configuration outside of a module or class, there are a few methods available to you
+This library requires your configuration be stored in a single yml file, located at
+
+`config/config.yml`
+
+### Loading Configuration
+Including the `Configurable` module is what initializes the `Configuration` object with the data from `config/config.yml`.
+Simply include this module and your configuration will be available via `CleanConfig::Configuration.instance`.
+
+If you are using the CleanConfig outside of a module or class, there are a few methods available to you
 to point CleanConfig to your configuration directory.
 
-`add!` allows you to change the directory/file name for your configuration files. CleanConfig will still search up the
-directory structure for the configuration, but looking for your path/file instead.
+`add!` allows you to change the directory/file name for your configuration files.
 
-`load!` looks for the default directory/file name (`config/config.yml`) but at the same level as the calling directory.
+`load!` looks for the default directory/file name (`config/config.yml`) but at the same level as the calling code.
 
 `merge!` allows you to pass in a hash of additional configuration to add to your CleanConfig.
 
 ### Accessing Configuration
 After `include CleanConfig::Configurable` you can access your config with: `CleanConfig::Configuration.instance`.
-`CleanConfig::Configuration` is a singleton so you will not be able to call `.new`. Use the `.instance` method instead.
 This will have all of your project's configuration and any configuration defined in dependencies.
 
-### Layering Configuration
-This data is stored in a `RecursiveOpenStruct` structure, which is similar to `Hash`.
-This means you can override the configuration in dependencies by overwriting their key-value pairs.
-Also, it's probably a good idea to nest your configuration under some top-level, project-specific key.
-This prevents accidental configuration collisions.
-
-Be aware, that this structure does not provide the usual methods like `#keys`, `#values` and others one would expect from `Hash`.
 To get access to the underlying `Hash` methods prefix them with `to_hash` or `to_h`, e.g. `config.to_h.values`.
-Only the `#keys` method has been enabled for convenience by monkeypatching the ruby class.
-The result of this is that if you have a field called `:keys:` in your config file the only way to access it is `config.to_h[:keys]`
+
+Note: We have added a `#keys` method also.
+As a result, if you have a field called `:keys:` in your config file the only way to access it is `config.to_h[:keys]`
+
+### Layering Configuration
+If you depend on gems that are using clean_config, you can override their key-value pairs in your own `config/config.yml`. 
+Also, it's a good idea to nest your configuration under some top-level, project-specific key to prevent accidental 
+configuration collisions.
 
 ## Contributing
 
 #### Contacts
 + Adrian Cazacu
-+ John Crimmins 
-+ Crystal Hsiung 
++ CivJ
++ Crystal Hsiung
 
 #### Process
 1. Fork it
