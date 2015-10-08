@@ -28,8 +28,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('rspec-extra-formatters', '~> 1.0')
   spec.add_development_dependency('rubocop', '= 0.26.1')
   spec.add_development_dependency('fuubar', '~> 2.0')
-
+  spec.add_development_dependency('yard')
+  spec.add_development_dependency('redcarpet')
   spec.add_development_dependency('simplecov', '~> 0.7')
+
   spec.add_runtime_dependency('recursive-open-struct', '~> 0.5')
   # We're using deep_merge which is available in all versions of activesupport so far.
   spec.add_runtime_dependency('activesupport', '< 5.0')
