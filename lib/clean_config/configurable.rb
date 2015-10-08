@@ -2,8 +2,12 @@ require 'logger'
 require_relative 'configuration'
 
 module CleanConfig
+  # Module to help initialize and gain access to CleanConfig::Configuration object
   module Configurable
     class << self
+
+      # Initialize the CleanConfig::Configuration object
+      # Reads in from default config/config.yml file based on project root directory
       def included(_parent)
         log = ConfLogger.new(STDOUT)
 

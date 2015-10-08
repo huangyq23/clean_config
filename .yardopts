@@ -1,0 +1,2 @@
+--exclude lib/clean_config/version.rb
+--exclude lib/tasks.rb
