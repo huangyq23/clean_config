@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.version       = CleanConfig::VERSION
   spec.summary       = 'A simple configuration library'
   spec.description   = 'Provides programatic access to config/config.yml'
-  spec.homepage      = 'http://github.com/opower/orb_configuration'
+  spec.homepage      = 'http://github.com/opower/clean_config'
 
   spec.authors       = ['John Crimmins', 'Crystal Hsiung', 'Adrian Cazacu']
   spec.email         = ['john.crimmins@opower.com']
