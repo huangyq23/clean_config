@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/opower/clean_config.svg?branch=master)](https://travis-ci.org/opower/clean_config)
+
 #clean_config
 
 A simple configuration library for Ruby projects.
